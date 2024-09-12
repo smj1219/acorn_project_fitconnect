@@ -1,0 +1,20 @@
+package com.example.fitconnect.repository;
+
+import java.util.List;
+
+import com.example.fitconnect.dto.MemberDto;
+import com.example.fitconnect.dto.TrainerCalendarDto;
+
+public interface TrainerCalendarDao {
+	public List<TrainerCalendarDto> getCalenList(int trainer_num);
+	public TrainerCalendarDto getCalender(int t_calendar_id);
+	public void insert(TrainerCalendarDto dto);
+	public void update(TrainerCalendarDto dto);
+	public void delete(int t_calendar_id);
+	
+	public MemberDto getMember(MemberDto dto);
+	public List<MemberDto> getMemberList(int trainer_num); 
+	//memberNum 을 가져가서 해당 멤버의 개인정보 내에서 trainerNum 삭제?
+	public void disconnect(int member_um);
+	
+}

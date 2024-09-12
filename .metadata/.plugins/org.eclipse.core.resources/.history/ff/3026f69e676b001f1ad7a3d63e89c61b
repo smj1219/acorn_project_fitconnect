@@ -1,0 +1,21 @@
+package com.example.fitconnect.service;
+
+
+import java.util.List;
+
+import com.example.fitconnect.dto.ExerciseJournalDto;
+import com.example.fitconnect.dto.ExerciseListDto;
+import com.example.fitconnect.repository.ExerciseListDao;
+
+public interface ExerciseService {
+
+	public List<ExerciseJournalDto> tSelectAll(ExerciseJournalDto dto);
+	public List<ExerciseJournalDto> mSelectAll(ExerciseJournalDto dto);
+	public ExerciseListDto exerSelectOne(int exerciseId);
+	public void addExercise(ExerciseJournalDto dto);
+	public void deleteExer(int journalld);
+	public void update(ExerciseJournalDto dto);
+	public List<ExerciseListDto> selectExetAll();
+	public List<ExerciseListDto> seleteCategory(String exerciseCate);
+	public ExerciseListDto ExerDetail(int exerciseId);
+}

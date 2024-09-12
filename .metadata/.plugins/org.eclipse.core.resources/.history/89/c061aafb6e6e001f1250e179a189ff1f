@@ -1,0 +1,69 @@
+package com.example.fitconnect.service;
+
+import java.sql.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.example.fitconnect.dto.ExerciseJournalDto;
+import com.example.fitconnect.dto.ExerciseListDto;
+import com.example.fitconnect.repository.ExerciseJournalDao;
+import com.example.fitconnect.repository.ExerciseListDao;
+
+@Service
+public class ExerciseServiceImpl implements ExerciseService {
+
+	@Autowired private ExerciseListDao listDao;
+	@Autowired private ExerciseJournalDao journalDao;
+	
+
+	@Override
+	public ExerciseJournalDto selectExerJournalOne(int e_journal_id) {
+		return journalDao.getExer(e_journal_id);
+	}
+
+	@Override
+	public void addExercise(ExerciseJournalDto dto) {
+		journalDao.insert(dto);
+	}
+
+	@Override
+	public void deleteExer(int e_journal_id) {
+		journalDao.delete(e_journal_id);
+	}
+
+	@Override
+	public void update(ExerciseJournalDto dto) {
+		
+		journalDao.update(dto);
+		System.out.println("serviceImpl"+dto);
+		
+	}
+
+	@Override
+	public List<ExerciseListDto> selectExetAll() {
+		return listDao.getExerList();
+	}
+
+	@Override
+	public List<ExerciseListDto> seleteCategory(String exercise_category) {
+		return listDao.getcategory(exercise_category);
+		
+	}
+
+	@Override
+	public ExerciseListDto ExerDetail(int exercise_id) {
+		
+		return listDao.getDetail(exercise_id);
+	}
+
+
+	@Override
+	public List<ExerciseJournalDto> SelectJournalAll(ExerciseJournalDto dto) {
+		
+		return journalDao.getExerJournalList(dto);
+	}
+
+}

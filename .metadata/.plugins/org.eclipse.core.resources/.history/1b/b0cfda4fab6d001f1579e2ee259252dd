@@ -1,0 +1,74 @@
+package com.example.fitconnect.repository;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.example.fitconnect.dto.DietJournalDto;
+import com.example.fitconnect.dto.ExerciseJournalDto;
+import com.example.fitconnect.dto.MemberDto;
+import com.example.fitconnect.dto.TrainerCalendarDto;
+
+@Repository
+public class TrainerCalendarDaoImpl implements TrainerCalendarDao {
+	
+	@Autowired private SqlSession session;
+
+	@Override
+	public List<TrainerCalendarDto> getCalenList(int trainer_num) {
+		
+		return session.selectList("TrainerCalendar.getList", trainer_num);
+	}
+
+	@Override
+	public TrainerCalendarDto getCalender(int t_calender_id) {
+		
+		return session.selectOne("TrainerCalendar.getSchedule", t_calender_id);
+	}
+
+	@Override
+	public void insert(TrainerCalendarDto dto) {
+		session.insert("TrainerCalendar.insert", dto);
+	}
+
+	@Override
+	public void update(TrainerCalendarDto dto) {
+		session.update("TrainerCalendar.update", dto);
+	}
+
+	@Override
+	public void delete(int t_calender_id) {
+		session.delete("TrainerCalendar.delete", t_calender_id);
+	}
+
+	@Override
+	public MemberDto getMember(MemberDto dto) {
+		return session.selectOne("TrainerCalendar.getMember", dto);
+	}
+
+	@Override
+	public List<MemberDto> getMemberList(int trainer_num) {
+		return session.selectList("TrainerCalendar.getMemberAll", trainer_num);
+	}
+	
+	@Override
+	public List<ExerciseJournalDto> getExerJournalList(ExerciseJournalDto dto) {
+		return session.selectList("TrainerCalendar.getExerJournalList", dto);
+	}
+	
+
+	@Override
+	public void disconnect(int trainer_num) {
+		session.delete("TrainerCalendar.disconnect", trainer_num);
+	}
+
+	@Override
+	public List<DietJournalDto> getDietJournalList(DietJournalDto dto) {
+		
+		return session.selectList("TrainerCalendar.getDietJournalList", dto);
+	}
+
+
+}

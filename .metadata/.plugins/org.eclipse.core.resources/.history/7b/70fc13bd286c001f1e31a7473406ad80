@@ -1,0 +1,14 @@
+package com.example.fitconnect.repository;
+
+import java.util.List;
+
+import com.example.fitconnect.dto.ExerciseJournalDto;
+
+public interface ExerciseJournalDao {
+	public List<ExerciseJournalDto> getExerListTrainer(ExerciseJournalDto dto);
+	public List<ExerciseJournalDto> getExerListMember(ExerciseJournalDto dto);
+	public ExerciseJournalDto getExer(int e_journal_id);
+	public void insert(ExerciseJournalDto dto);
+	public void update(ExerciseJournalDto dto);
+	public void delete(int e_journal_id);
+}

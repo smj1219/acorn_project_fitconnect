@@ -1,0 +1,83 @@
+package com.example.fitconnect.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Delete;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.fitconnect.dto.MemberDto;
+import com.example.fitconnect.dto.TrainerCalendarDto;
+import com.example.fitconnect.service.TrainerCalendarService;
+
+import jakarta.websocket.server.PathParam;
+import lombok.Delegate;
+
+@RestController
+public class TrainerCalendarController {
+
+	@Autowired private TrainerCalendarService service;
+	
+	
+	@GetMapping("/trainercalendar/{trainer_num}")
+	public Map<String, Object> calendarList(@PathVariable("trainer_num") int trainer_num) {
+		
+		List<TrainerCalendarDto> calList = service.selectCalenList(trainer_num);
+		List<MemberDto> memList = service.selectMemberList(trainer_num);
+		
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("memList", memList);
+		map.put("calList", calList);
+	
+		
+		return map;
+	}
+	
+	@PostMapping("/trainercalendar/{trainer_num}")
+	public Map<String, Object> insertCal(@PathVariable("trainer_num") int trainer_num,  TrainerCalendarDto dto){
+		service.addSchedule(dto);
+		Map<String, Object> map = new HashMap<String, Object>();
+		return Map.of("isSuccess", true);
+	}
+	
+	@PutMapping("/trainercalendar/{t_calendar_id}")
+	public TrainerCalendarDto updateCal(@PathVariable("t_calendar_id") int t_calendar_id, TrainerCalendarDto dto){
+		service.updateSchedule(dto);
+		return dto;
+		
+	}
+	
+	@DeleteMapping("/trainercalendar/{t_calendar_id}")
+	public Map<String, Object> deleteCal(@PathVariable("t_calendar_id") int t_calendar_id){
+		Map<String, Object> map = new HashMap<String, Object>();
+		return Map.of("isSuccess", true);
+	}
+	
+	@GetMapping("/trainer/list/{trainer_num}")
+	public Map<String, Object> memberList(@PathVariable("trainer_num") int trainer_num){
+		List<MemberDto> list=service.selectMemberList(trainer_num);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberList", list);
+		
+		return map;
+	}
+	
+	@GetMapping("trainer/detali/{member_num}")
+	public Map<String, Object> memberOne(@PathVariable("member_num") int member_num, MemberDto dto){
+		return service.seleteMemberOne(dto);
+	}
+	
+	@DeleteMapping("trainer/detali/{member_num}")
+	public Map<String, Object> disconnectMember(@PathVariable("member_num") int member_num){
+		return Map.of("isSuccess", true);
+	}
+}

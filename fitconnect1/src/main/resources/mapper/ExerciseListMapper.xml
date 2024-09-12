@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ExerciseList">
+	<sql id="column">
+		exercise_id, exercise_num, exercise_category, exercise_info, saveImage
+	</sql>
+	<select id="getAll" resultType="ExerciseListDto">
+		SELECT <include refid="column"/>
+		From exerciseList
+		ORDER BY exercise_id ASC
+	</select>
+	<select id="getOne" resultType="ExerciseListDto" parameterType="int">
+		SELECT <include refid="column"/>
+		FROM exerciselist
+		WHERE num=#{exerciseId}
+	</select>
+	<select id="getCategory" resultType="ExerciseListDto" parameterType="int">
+		SELECT <include refid="column"/>
+		FROM exerciselist
+		WHERE exercisecategory=#{exerciseCate}
+	</select>
+</mapper>

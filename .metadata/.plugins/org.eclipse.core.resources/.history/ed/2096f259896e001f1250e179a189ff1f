@@ -1,0 +1,24 @@
+package com.fitconnect.trainer.repository;
+
+import java.util.List;
+
+import com.fitconnect.trainer.dto.DietJournalDto;
+import com.fitconnect.trainer.dto.ExerciseJournalDto;
+import com.fitconnect.trainer.dto.MemberDto;
+import com.fitconnect.trainer.dto.TrainerCalendarDto;
+
+public interface TrainerCalendarDao {
+	public List<TrainerCalendarDto> getCalenList(int trainer_num);
+	public TrainerCalendarDto getCalender(int t_calendar_id);
+	public boolean insert(TrainerCalendarDto dto);
+	public boolean update(TrainerCalendarDto dto);
+	public boolean delete(int t_calendar_id);
+	
+	public MemberDto getMember(MemberDto dto);
+	public List<MemberDto> getMemberList(int trainer_num); 
+	public List<ExerciseJournalDto> getExerJournalList(ExerciseJournalDto dto);
+	public List<DietJournalDto> getDietJournalList(DietJournalDto dto);
+	
+	public boolean disconnect(int member_um);
+	
+}

@@ -1,0 +1,22 @@
+package com.example.fitconnect.service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.example.fitconnect.dto.ExerciseJournalDto;
+import com.example.fitconnect.dto.MemberDto;
+import com.example.fitconnect.dto.TrainerCalendarDto;
+
+public interface TrainerCalendarService {
+	public List<TrainerCalendarDto> selectCalenList(int trainer_num);
+	public TrainerCalendarDto selectCalenderOne(int t_calendar_id);
+	public void addSchedule(TrainerCalendarDto dto);
+	public void updateSchedule(TrainerCalendarDto dto);
+	public void deleteSchedule(int t_calendar_id);
+	
+	public List<MemberDto> selectMemberList(int trainer_num); 
+	public Map<String, Object> selectMemberOne(MemberDto dto);
+	public List<ExerciseJournalDto> selectMemExer(ExerciseJournalDto dto);
+	public void disconnect(int member_num);
+	public Map<String, Object> seleteMemberOne(MemberDto dto);
+}

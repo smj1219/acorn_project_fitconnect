@@ -1,0 +1,18 @@
+package com.fitconnect.trainer.repository;
+
+import java.util.List;
+import java.util.Map;
+
+import com.fitconnect.trainer.dto.ExerciseJournalDto;
+
+public interface ExerciseJournalDao {
+	
+	public List<ExerciseJournalDto> getExerJournalList(ExerciseJournalDto dto);
+	public ExerciseJournalDto getExer(int e_journal_id);
+	
+	public boolean insert(List<ExerciseJournalDto> exerJournalList);
+	
+	public boolean update(ExerciseJournalDto dto);
+	public boolean delete(int e_journal_id);
+	public boolean deleteAll(int m_journal_id);
+}

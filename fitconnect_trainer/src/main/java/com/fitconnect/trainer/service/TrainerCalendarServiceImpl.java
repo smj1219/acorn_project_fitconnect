@@ -4,28 +4,32 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-
-import com.fitconnect.trainer.dto.ExerciseJournalDto;
+import com.fitconnect.trainer.dto.ChatRoomDto;
 import com.fitconnect.trainer.dto.MemberDto;
 import com.fitconnect.trainer.dto.TrainerCalendarDto;
+import com.fitconnect.trainer.repository.MessageDao;
 import com.fitconnect.trainer.repository.TrainerCalendarDao;
+
+
 
 @Service
 public class TrainerCalendarServiceImpl implements TrainerCalendarService  {
 
 	@Autowired private TrainerCalendarDao calDao;
 	
+	@Autowired private MessageDao MsgDao;
 	
 	//트레이너 전체 캘린저 일정 리스트
 	@Override
 	public List<TrainerCalendarDto> selectCalenList() {
 		//토큰에 저장된 user_id을 user_id이라는 key 값에 담기
-		int user_id=1;//토큰 값으로 수정 예정
-		
-		return calDao.getCalenList(user_id);
+		int num=1;
+	   
+		return calDao.getCalenList(num);
 	}
 
 	//트레이너의 특정 일자 일정
@@ -37,7 +41,9 @@ public class TrainerCalendarServiceImpl implements TrainerCalendarService  {
 	//트레이너 일정 등록
 	@Override
 	public boolean addSchedule(TrainerCalendarDto dto) {
-		dto.setT_calendar_id(dto.getT_calendar_id());
+		int num=1;
+		
+		dto.setTrainer_num(num);
 		boolean isSuccess = calDao.insert(dto);
 		return isSuccess;
 	}
@@ -70,12 +76,19 @@ public class TrainerCalendarServiceImpl implements TrainerCalendarService  {
 	@Override
 	public List<MemberDto> selectMemberList() {
 		//토큰에 저장된 user_num을 user_num이라는 key 값에 담기
-		int user_id=1;//토큰 값으로 수정 예정
-		return calDao.getMemberList(user_id);
+		int num=1;
+		return calDao.getMemberList(num);
 	}
 
 	@Override
 	public boolean disconnect(int member_num) {
+		//채팅방 삭제 추가
+		
+	    ChatRoomDto chatDto = MsgDao.getChatRoom(member_num);
+	    System.out.println(chatDto);
+	    String topic = chatDto.getTopic();
+		MsgDao.deleteChat(topic);
+		
 		boolean isSuccess = calDao.disconnect(member_num);
 		return isSuccess;
 	}
